@@ -1,0 +1,32 @@
+class Solution(object):
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        # Negative numbers are not palindromes (e.g., -121 is not 121-)
+        if x < 0:
+            return False
+
+        # Single-digit numbers are palindromes
+        if x < 10:
+            return True
+
+        # Numbers ending in 0 (except 0 itself) cannot be palindromes
+        # because the reversed number would start with a non-zero digit
+        # and end with 0, which would not match the original.
+        if x % 10 == 0:
+            return False
+
+        reversed_num = 0
+        original_x = x
+
+        while x > reversed_num:
+            reversed_num = reversed_num * 10 + x % 10
+            x //= 10
+
+        # For even number of digits, x and reversed_num will be equal.
+        # For odd number of digits, x will be the middle digit and
+        # reversed_num will have one more digit than x.
+        # So, we check if x is equal to reversed_num or reversed_num // 10.
+        return x == reversed_num or x == reversed_num // 10
